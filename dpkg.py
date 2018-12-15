@@ -19,5 +19,5 @@ class Dpkg(dotbot.Plugin):
     def _handle_deb(self, data):
         for package in data:
             subprocess.call(["dpkg", "-i", package])
-        subprocess.call(["apt install -fy"])
+        subprocess.call(["apt", "install", "-f", "-y"])
         return True
