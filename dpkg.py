@@ -2,6 +2,8 @@ import shutil
 import subprocess
 import dotbot
 
+from os.path import expanduser
+
 
 class Dpkg(dotbot.Plugin):
     _directive_dpkg = "dpkg"
@@ -18,6 +20,8 @@ class Dpkg(dotbot.Plugin):
 
     def _handle_deb(self, data):
         for package in data:
+            if package.startswith('~'):
+                package = expanduser(package)
             subprocess.call(["dpkg", "-i", package])
         subprocess.call(["apt", "install", "-f", "-y"])
         return True
